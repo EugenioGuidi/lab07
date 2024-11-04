@@ -13,7 +13,8 @@ public class TestIterablePlain {
 
     private static <T> IterableWithPolicy<T> getIterableWithPolicy(T[] elements) {
         IterableWithPolicyImpl<T> IterableWithPolicy = new IterableWithPolicyImpl<T>(elements);
-        return IterableWithPolicy; // TODO: return the implementation of IterableWithPolicy
+
+        return IterableWithPolicy;
     }
 
     public static void main(final String[] args) {
