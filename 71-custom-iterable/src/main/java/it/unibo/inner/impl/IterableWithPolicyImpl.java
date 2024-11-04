@@ -32,8 +32,7 @@ public class IterableWithPolicyImpl<T> implements IterableWithPolicy<T>{
 
     @Override
     public void setIterationPolicy(Predicate filter) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setIterationPolicy'");
+        this.predicate = filter;
     }
 
     public class IteratorImpl implements Iterator<T> {
@@ -50,6 +49,7 @@ public class IterableWithPolicyImpl<T> implements IterableWithPolicy<T>{
 
         @Override
         public T next() {
+            IterableWithPolicyImpl.this.predicate.test(IterableWithPolicyImpl.this.array[index]);
             this.index = this.index + 1;
             return IterableWithPolicyImpl.this.array[this.index - 1];
         }
