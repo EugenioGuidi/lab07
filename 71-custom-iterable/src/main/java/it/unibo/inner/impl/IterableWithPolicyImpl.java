@@ -40,11 +40,13 @@ public class IterableWithPolicyImpl<T> implements IterableWithPolicy<T>{
 
         @Override
         public boolean hasNext() {
-            if(index < IterableWithPolicyImpl.this.array.length) {
-                return true;
-            }else {
-                return false;
+            while(index < IterableWithPolicyImpl.this.array.length) {
+                if(IterableWithPolicyImpl.this.predicate.test(IterableWithPolicyImpl.this.array[this.index])) {
+                    return true;
+                }
+                this.index++;
             }
+            return false;
         }
 
         @Override

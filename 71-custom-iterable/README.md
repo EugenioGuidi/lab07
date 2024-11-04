@@ -24,5 +24,5 @@
 3. Implement the `setIterationPolicy` method so that it sets the `Predicate<T>` that will be used to filter the elements during the iteration.
 //implementato setIterationPolicy
 4. Modify the implementation of the inner class (the `Iterator<T>` implementation) so that it uses the `Predicate<T>` to filter the elements during the iteration.
-
+//ho fatto, stavo sbagliando dentro hasNext, al posto del while usavo un if
 5. Test the implementation by running the `TestIterableWithPolicy` class.
