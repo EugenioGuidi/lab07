@@ -5,8 +5,11 @@
 ## Part 1: iterable without policy
 
 1. Implement the `IterableWithPolicy<T>` interface via a generic class with a constructor that takes an array of `T` elements.
+//fatto con commit
 2. Leave the `setIterationPolicy` method empty (for now).
+//lasciato vuoto
 3. Implement an inner class that implements the `Iterator<T>` interface so that it iterates over the elements of the array given to the constructor.
+//implementato IteratorImpl<T> implements Iterator<T>
 4. Implement the `iterator()` method so that it returns an instance of the inner class.
 5. Test the implementation by running the `TestIterablePlain` class.
 
