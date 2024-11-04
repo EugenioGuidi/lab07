@@ -25,4 +25,20 @@ public class IterableWithPolicyImpl<T> implements IterableWithPolicy<T>{
         throw new UnsupportedOperationException("Unimplemented method 'setIterationPolicy'");
     }
 
+    public class IteratorImpl<T> implements Iterator<T> {
+
+        @Override
+        public boolean hasNext() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'hasNext'");
+        }
+
+        @Override
+        public T next() {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'next'");
+        }
+        
+    } 
+
 }
