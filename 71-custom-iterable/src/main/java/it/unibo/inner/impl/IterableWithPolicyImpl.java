@@ -15,8 +15,9 @@ public class IterableWithPolicyImpl<T> implements IterableWithPolicy<T>{
 
     @Override
     public Iterator iterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'iterator'");
+        IteratorImpl iterator = new IteratorImpl();
+
+        return iterator;
     }
 
     @Override
@@ -25,18 +26,22 @@ public class IterableWithPolicyImpl<T> implements IterableWithPolicy<T>{
         throw new UnsupportedOperationException("Unimplemented method 'setIterationPolicy'");
     }
 
-    public class IteratorImpl<T> implements Iterator<T> {
+    public class IteratorImpl implements Iterator<T> {
+        private int index = 0;
 
         @Override
         public boolean hasNext() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'hasNext'");
+            if(index < IterableWithPolicyImpl.this.array.length) {
+                return true;
+            }else {
+                return false;
+            }
         }
 
         @Override
         public T next() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'next'");
+            this.index = this.index + 1;
+            return IterableWithPolicyImpl.this.array[this.index - 1];
         }
         
     } 
