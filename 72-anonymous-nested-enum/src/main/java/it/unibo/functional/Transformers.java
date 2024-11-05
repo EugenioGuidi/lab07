@@ -118,6 +118,13 @@ public final class Transformers {
      * @param <I> elements type
      */
     public static <I> List<I> reject(final Iterable<I> base, final Function<I, Boolean> test) {
-        return null;
+        List<I> rejectedList = new LinkedList<>();
+        for(final I element : Objects.requireNonNull(base, "The base iterable cannot be null")) {
+            if(!test.call(element)) {
+                rejectedList.add(element);
+            }
+        }
+
+        return rejectedList;
     }
 }
