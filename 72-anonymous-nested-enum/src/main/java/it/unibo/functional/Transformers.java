@@ -4,6 +4,7 @@ import it.unibo.functional.api.Function;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -54,7 +55,11 @@ public final class Transformers {
      * @param <O> output elements type
      */
     public static <I, O> List<O> transform(final Iterable<I> base, final Function<I, O> transformer) {
-        return null;
+        List<O> transformedList = new LinkedList<O>();
+        for(final I element : Objects.requireNonNull(base, "The base iterable cannot be null")) {
+            transformedList.add(transformer.call(element));
+        }
+        return transformedList;
     }
 
     /**
