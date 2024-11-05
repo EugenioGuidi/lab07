@@ -75,7 +75,11 @@ public final class Transformers {
      * @param <I> type of the collection elements
      */
     public static <I> List<? extends I> flatten(final Iterable<? extends Collection<? extends I>> base) {
-        return null;
+        List<I> flattenedList = new LinkedList<>();
+        for(final Collection<? extends I> element : Objects.requireNonNull(base, "The base iterable cannot be null")) {
+            flattenedList.addAll(element);
+        }
+        return flattenedList;
     }
 
     /**
