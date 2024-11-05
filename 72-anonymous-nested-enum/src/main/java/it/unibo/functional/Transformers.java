@@ -96,7 +96,13 @@ public final class Transformers {
      * @param <I> elements type
      */
     public static <I> List<I> select(final Iterable<I> base, final Function<I, Boolean> test) {
-        return null;
+        List<I> selectedList = new LinkedList<>();
+        for(final I element : Objects.requireNonNull(base, "The base iterable cannot be null")) {
+            if(test.call(element)) {
+                selectedList.add(element);
+            }
+        }
+        return selectedList;
     }
 
     /**
