@@ -1,8 +1,14 @@
 package it.unibo.nestedenum;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.Dictionary;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+
+import it.unibo.functional.api.Function;
 
 /**
  * Implementation of {@link MonthSorter}.
@@ -47,6 +53,24 @@ public final class MonthSorterNested implements MonthSorter {
             this.days = days;
         }
 
-    }
+        public String getName() {
+            return this.name();
+        }
 
+        public Month fromString(String name) {
+            int cont = 0;
+            Month month = null;
+            for(Month m : Month.values()) {
+                if(m.getName().startsWith(name)) {
+                    cont = cont + 1;
+                    month = m;
+                }
+            }
+            if(cont == 1) {
+                return month;
+            }else {
+                throw new IllegalArgumentException("Too many months found or not at all");
+            }
+        }
+    }
 }
