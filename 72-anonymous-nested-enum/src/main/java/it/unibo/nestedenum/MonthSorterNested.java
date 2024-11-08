@@ -18,21 +18,62 @@ public final class MonthSorterNested implements MonthSorter {
     private static final int SHORT_MONTH = 28;
     private static final int USUAL_MONTH = 30;
     private static final int LONG_MONTH = 31;
+    private static final int NOT_VALID_VAL = 0;
 
     @Override
     public Comparator<String> sortByDays() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sortByDays'");
+        return new SortByDate();
     }
 
     @Override
     public Comparator<String> sortByOrder() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'sortByOrder'");
+        return new SortByMonthOrder();
+    }
+
+    public static class SortByDate implements Comparator<String> {
+
+        @Override
+        public int compare(String o1, String o2) {
+            int daysO1 = NOT_VALID_VAL;
+            int daysO2 = NOT_VALID_VAL;
+            for(MonthSorterNested.Month month : Month.values()) {
+                if(month.getName().equals(o1)) {
+                    daysO1 = month.getDays();
+                }else if(month.getName().equals(o2)) {
+                    daysO2 = month.getDays();
+                }
+            }
+            if(daysO1 == NOT_VALID_VAL || daysO2 == NOT_VALID_VAL) {
+                throw new IllegalArgumentException("Element non found in month (SortByDate)");
+            }
+            if(daysO1 < daysO2) {
+                return -1;
+            }else if(daysO1 == daysO2) {
+                return 0;
+            }
+            return 1;
+        }
+        
+    }
+
+    public static class SortByMonthOrder implements Comparator<String> {
+
+        @Override
+        public int compare(String o1, String o2) {
+            for(MonthSorterNested.Month month : MonthSorterNested.Month.values()) {
+                if(month.fromString(o1) instanceof MonthSorterNested.Month) {
+                    return -1;
+                }else if(month.fromString(o2) instanceof MonthSorterNested.Month) {
+                    return 1;
+                }
+            }
+            throw new IllegalArgumentException("Element non found in month (SortByMonthOrder)");
+        }
+
     }
 
     public enum Month {
-        JENUARY("jenuary", LONG_MONTH),
+        JANUARY("january", LONG_MONTH),
         FEBRUARY("february", SHORT_MONTH),
         MARCH("march", LONG_MONTH),
         APRIL("april", USUAL_MONTH),
@@ -57,11 +98,16 @@ public final class MonthSorterNested implements MonthSorter {
             return this.name();
         }
 
-        public Month fromString(String name) {
+        public int getDays() {
+            return this.days;
+        }
+
+        public static Month fromString(String name) {
+            String nameLowerCase = name.toLowerCase();
             int cont = 0;
             Month month = null;
             for(Month m : Month.values()) {
-                if(m.getName().startsWith(name)) {
+                if(m.getName().startsWith(nameLowerCase)) {
                     cont = cont + 1;
                     month = m;
                 }
@@ -69,7 +115,7 @@ public final class MonthSorterNested implements MonthSorter {
             if(cont == 1) {
                 return month;
             }else {
-                throw new IllegalArgumentException("Too many months found or not at all");
+                throw new IllegalArgumentException("Too many months found or not at all " + nameLowerCase);
             }
         }
     }
