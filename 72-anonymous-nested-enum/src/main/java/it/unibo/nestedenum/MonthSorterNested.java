@@ -15,12 +15,53 @@ public final class MonthSorterNested implements MonthSorter {
 
     @Override
     public Comparator<String> sortByDays() {
-        return null;
+        return new Comparator<String>() {
+
+            @Override
+            public int compare(String o1, String o2) {
+                int daysO1 = getMonth(o1).getDays();
+                int daysO2 = getMonth(o2).getDays();
+                if(daysO1 < daysO2) {
+                    return -1;
+                }
+                if(daysO1 == daysO2) {
+                    return 0;
+                }
+                if(daysO1 > daysO2) {
+                    return 1;
+                }
+                throw new IllegalArgumentException("Days o1 or o2 not valid in compartorByDays");
+            }
+            
+        };
     }
 
     @Override
     public Comparator<String> sortByOrder() {
-        return null;
+        return new Comparator<String>() {
+
+            @Override
+            public int compare(String o1, String o2) {
+                int daysO1 = getMonth(o1).ordinal();
+                int daysO2 = getMonth(o2).ordinal();
+                if(daysO1 < daysO2) {
+                    return -1;
+                }
+                if(daysO1 == daysO2) {
+                    return 0;
+                }
+                if(daysO1 > daysO2) {
+                    return 1;
+                }
+                throw new IllegalArgumentException("Days o1 or o2 not valid in compartorByOrder");
+            }
+              
+        };
+    }
+
+    private Month getMonth(String nameMonth) {
+        //qui devo richiamare probabilmente fromToString
+        return Month.valueOf(nameMonth.toUpperCase());
     }
 
     public enum Month {
@@ -40,8 +81,16 @@ public final class MonthSorterNested implements MonthSorter {
         private String monthName;
         private int days;
 
+        private int getDays() {
+            return this.days;
+        }
+
         private Month(final String monthName, final int days) {
             this.monthName = monthName;
             this.days = days;
         }
+    }
+
+
+
 }
