@@ -103,13 +103,13 @@ public final class MonthSorterNested implements MonthSorter {
             for(Month month : Month.values()) {
                 if(month.getNameMonth().startsWith(nameMonth.toLowerCase())) {
                     if(matchedMonth != null) {
-                        throw new IllegalStateException("String that match more then one month");
+                        throw new IllegalArgumentException("String that match more then one month");
                     }
                     matchedMonth = month;
                 }
             }
             if(matchedMonth == null) {
-                throw new IllegalStateException("String that don't found a month");
+                throw new IllegalArgumentException("String that don't found a month");
             }
             return matchedMonth;
         }
