@@ -2,10 +2,15 @@ package it.unibo.bank.impl;
 
 import it.unibo.bank.api.AccountHolder;
 import it.unibo.bank.api.BankAccount;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import javax.swing.plaf.basic.BasicBorders.MarginBorder;
@@ -20,6 +25,7 @@ class TestStrictBankAccount {
     private BankAccount bankAccount;
 
     private static final int AMOUNT = 100;
+    private static final int ACCEPTABLE_MESSAGE_LENGTH = 20;
 
     /**
      * Prepare the tests.
@@ -69,6 +75,15 @@ class TestStrictBankAccount {
      */
     @Test
     public void testWithdrawingTooMuch() {
-        fail("To be implemented");
+        bankAccount.deposit(1, AMOUNT);
+        try {
+            bankAccount.withdraw(1, AMOUNT * 2);
+            Assertions.fail("withdrawing setting the balance below zero was possible, but should have thrown an exception");
+        } catch (IllegalArgumentException e) {
+            assertEquals(AMOUNT, bankAccount.getBalance());
+            assertNotNull(e.getMessage());
+            assertFalse(e.getMessage().isBlank());
+            assertTrue(e.getMessage().length() >= ACCEPTABLE_MESSAGE_LENGTH);
+        }
     }
 }
