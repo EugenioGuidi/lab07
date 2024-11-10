@@ -19,6 +19,8 @@ class TestStrictBankAccount {
     private AccountHolder mRossi;
     private BankAccount bankAccount;
 
+    private static final int AMOUNT = 100;
+
     /**
      * Prepare the tests.
      */
@@ -45,7 +47,13 @@ class TestStrictBankAccount {
      */
     @Test
     public void testManagementFees() {
-        fail("To be implemented");
+        assertEquals(0, bankAccount.getTransactionsCount());
+        assertEquals(1, bankAccount.getAccountHolder().getUserID());
+        bankAccount.deposit(1, AMOUNT);
+        assertEquals(AMOUNT, bankAccount.getBalance());
+        bankAccount.chargeManagementFees(1);
+        assertEquals(AMOUNT - StrictBankAccount.MANAGEMENT_FEE - bankAccount.getTransactionsCount() 
+        - StrictBankAccount.TRANSACTION_FEE, bankAccount.getBalance());
     }
 
     /**
