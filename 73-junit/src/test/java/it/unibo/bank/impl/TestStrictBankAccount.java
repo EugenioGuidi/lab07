@@ -26,6 +26,7 @@ class TestStrictBankAccount {
 
     private static final int AMOUNT = 100;
     private static final int ACCEPTABLE_MESSAGE_LENGTH = 20;
+    private static final int NEGATIVE_AMOUNT = -10;
 
     /**
      * Prepare the tests.
@@ -67,7 +68,16 @@ class TestStrictBankAccount {
      */
     @Test
     public void testNegativeWithdraw() {
-        fail("To be implemented");
+        bankAccount.deposit(1, AMOUNT);
+        try {
+            bankAccount.withdraw(bankAccount.getAccountHolder().getUserID(), NEGATIVE_AMOUNT);
+            Assertions.fail("Wothdrowing a negative amount was possible, but should have thrown an exception");
+        } catch (IllegalArgumentException e) {
+            assertEquals(AMOUNT, bankAccount.getBalance());
+            assertNotNull(e.getMessage());
+            assertTrue(e.getMessage().length() >= ACCEPTABLE_MESSAGE_LENGTH);
+            assertFalse(e.getMessage().isBlank());
+        }
     }
 
     /**
