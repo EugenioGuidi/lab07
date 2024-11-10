@@ -1,8 +1,6 @@
 package it.unibo.nestedenum;
 
 import java.util.Comparator;
-import java.util.Locale;
-import java.util.Objects;
 
 /**
  * Implementation of {@link MonthSorter}.
@@ -27,18 +25,9 @@ public final class MonthSorterNested implements MonthSorter {
 
         @Override
         public int compare(String o1, String o2) {
-            int daysO1 = getMonth(o1).getDays();
-            int daysO2 = getMonth(o2).getDays();
-            if(daysO1 < daysO2) {
-                return -1;
-            }
-            if(daysO1 == daysO2) {
-               return 0;
-            }
-            if(daysO1 > daysO2) {
-                return 1;
-            }
-            throw new IllegalArgumentException("Days o1 or o2 not valid in compartorByDays");
+            int daysO1 = Month.fromString(o1).getDays();
+            int daysO2 = Month.fromString(o2).getDays();
+            return Integer.compare(daysO1, daysO2);
         }
         
     }
@@ -47,25 +36,11 @@ public final class MonthSorterNested implements MonthSorter {
 
         @Override
         public int compare(String o1, String o2) {
-            int daysO1 = getMonth(o1).ordinal();
-            int daysO2 = getMonth(o2).ordinal();
-            if(daysO1 < daysO2) {
-                return -1;
-            }
-            if(daysO1 == daysO2) {
-                return 0;
-            }
-            if(daysO1 > daysO2) {
-                return 1;
-            }
-            throw new IllegalArgumentException("Days o1 or o2 not valid in compartorByOrder");
+            int daysO1 = Month.fromString(o1).ordinal();
+            int daysO2 = Month.fromString(o2).ordinal();
+            return Integer.compare(daysO1, daysO2);
         }
         
-    }
-
-    private static Month getMonth(String nameMonth) {
-
-        return Month.fromString(nameMonth);
     }
 
     public enum Month {
